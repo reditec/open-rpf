@@ -31,10 +31,11 @@ namespace Simple_RPF_Viewer
             {
 
                 //try this one after the roll-out of the next gui preview
-                //listView.Items[i.ToString()].Group = listView.Groups["dir"];
+                
 
 
                 listView.Items.Add(i.ToString(), toc.FileSystemEntriesList[i].Name, 0);
+
                 if (toc.FileSystemEntriesList[i].GetType() == typeof(rpf::Directory))
                 {
                     rpf::Directory crtDirectory = toc.FileSystemEntriesList[i] as rpf::Directory;
@@ -42,6 +43,7 @@ namespace Simple_RPF_Viewer
                     listView.Items[i.ToString()].SubItems.Add(crtDirectory.Count + " items");
                     listView.Items[i.ToString()].SubItems.Add("Folder");
                     listView.Items[i.ToString()].SubItems.Add("No");
+                    listView.Items[i.ToString()].Group = listView.Groups["dir"];
                 }
                 else
                 {
