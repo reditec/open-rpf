@@ -11,10 +11,11 @@ namespace RPF
             {
                 return "0 KB";
             }
+            //formatting
             else if (size >= 1024)
             {
 
-                return Math.Round(size / 1024.0).ToString() + " KB";
+                return String.Format("{0:n0}", Math.Round(size / 1024.0)) + " KB";
             }
             else
             {
