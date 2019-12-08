@@ -49,7 +49,7 @@ namespace Simple_RPF_Viewer
                 {
                     rpf::File crtFile = toc.FileSystemEntriesList[i] as rpf::File;
                     listView.Items[i.ToString()].SubItems.Add("File");
-                    listView.Items[i.ToString()].SubItems.Add(rpf::Calculator.CalculateSize(2048));
+                    listView.Items[i.ToString()].SubItems.Add(rpf::Calculator.CalculateSize(crtFile.Size));
                     listView.Items[i.ToString()].SubItems.Add("No");
                     listView.Items[i.ToString()].SubItems.Add("No");
                 }

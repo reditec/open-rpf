@@ -13,15 +13,18 @@ namespace RPF
 
             using FileStream originalFileStream = fileInfo.OpenRead();
             originalFileStream.Seek(offset, SeekOrigin.Begin);
+            byte[] compressedFile = new byte[compressedSize];
+            originalFileStream.Read(compressedFile, 0, compressedSize);
+            MemoryStream ms = new MemoryStream(compressedFile);
 
             using FileStream decompressedFileStream = System.IO.File.Create(expath);
             if (size == compressedSize)
             {
-                originalFileStream.CopyTo(decompressedFileStream);
+                ms.CopyTo(decompressedFileStream);
             }
             else
             {
-                using DeflateStream decompressionStream = new DeflateStream(originalFileStream, CompressionMode.Decompress);
+                using DeflateStream decompressionStream = new DeflateStream(ms, CompressionMode.Decompress);
                 decompressionStream.CopyTo(decompressedFileStream);
             }
         }
