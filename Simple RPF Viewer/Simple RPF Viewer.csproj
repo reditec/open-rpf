@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>Simple_RPF_Viewer</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
