@@ -8,16 +8,14 @@ namespace Simple_RPF_Viewer
     class Toc
     {
 
-        private MemoryStream _namesStream;
         private List<rpf::FileSystemEntry> _fseList = new List<rpf::FileSystemEntry>();
-
         public List<rpf::FileSystemEntry> FileSystemEntriesList { get => _fseList; }
 
 
         public Toc(Stream toc, int count)
         {
 
-            LoadNameSection(toc, count);
+            MemoryStream namesStream = GetNameSection(toc, count);
             toc.Seek(0, SeekOrigin.Begin);
 
 
@@ -33,13 +31,13 @@ namespace Simple_RPF_Viewer
                 ms.Read(temp, 0, 3);
 
                 int fnoffset = BitConverter.ToInt32(temp);
-                _namesStream.Seek(fnoffset, SeekOrigin.Begin);
+                namesStream.Seek(fnoffset, SeekOrigin.Begin);
                 String name = "";
 
                 byte[] currentLetter = new byte[1];
                 do
                 {
-                    _namesStream.Read(currentLetter, 0, 1);
+                    namesStream.Read(currentLetter, 0, 1);
                     if (currentLetter[0] != 0)
                     {
                         name += System.Text.Encoding.UTF8.GetString(currentLetter);
@@ -99,13 +97,13 @@ namespace Simple_RPF_Viewer
 
         }
 
-        private void LoadNameSection(Stream toc, int count)
+        private MemoryStream GetNameSection(Stream toc, int count)
         {
             //cut filename section from stream and load it into the namesStream
             byte[] temp = new byte[toc.Length - (count * 16)];
             toc.Seek(count * 16, SeekOrigin.Begin);
             toc.Read(temp, 0, temp.Length);
-            _namesStream = new MemoryStream(temp);
+            return new MemoryStream(temp);
         }
 
     }
